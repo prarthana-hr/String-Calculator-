@@ -7,15 +7,20 @@ public class StringCalculator {
         }
 
         String delimiter = ",";
-
         if (numbers.startsWith("//")) {
             int delimiterEndIndex = numbers.indexOf("\n");
-            delimiter = numbers.substring(2, delimiterEndIndex);
+            String delimiterSection = numbers.substring(2, delimiterEndIndex);
+
+            if (delimiterSection.startsWith("[") && delimiterSection.endsWith("]")) {
+                delimiter = java.util.regex.Pattern.quote(delimiterSection.substring(1, delimiterSection.length() - 1));
+            } else {
+                delimiter = java.util.regex.Pattern.quote(delimiterSection);
+            }
+
             numbers = numbers.substring(delimiterEndIndex + 1);
         }
 
         numbers = numbers.replace("\n", delimiter);
-        delimiter = java.util.regex.Pattern.quote(delimiter);
         String[] parts = numbers.split(delimiter);
 
         int sum = 0;
@@ -30,11 +35,9 @@ public class StringCalculator {
                     }
                     negativeNumbers.append(num);
                 }
-                if(num<=1000){
+                if (num <= 1000) {
                     sum += num;
                 }
-
-
             }
         }
 
