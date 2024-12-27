@@ -5,6 +5,12 @@ public class StringCalculator {
         if (numbers.isEmpty()) {
             return 0;
         }
-        return Integer.parseInt(numbers); // Handle single number
+        if (numbers.contains(",")) {
+            String[] parts = numbers.split(",");
+            int num1 = Integer.parseInt(parts[0]);
+            int num2 = Integer.parseInt(parts[1]);
+            return num1 + num2;
+        }
+        return Integer.parseInt(numbers);
     }
 }
