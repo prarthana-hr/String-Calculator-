@@ -10,8 +10,6 @@ public class StringCalculatorTest {
         StringCalculator stringCalculator=new StringCalculator();
         assertEquals(3, stringCalculator.add("1,2"));
         assertEquals(10, stringCalculator.add("7,3"));
-
-
     }
 
 
