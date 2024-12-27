@@ -81,4 +81,12 @@ public class StringCalculatorTest {
         assertEquals(2, calculator.add("//[===]\n2===1001"));
         assertEquals(0, calculator.add("//[###]\n"));
     }
+
+    @Test
+    void testMultipleDelimiters() {
+        StringCalculator calculator = new StringCalculator();
+
+        assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
+        assertEquals(10, calculator.add("//[###][%%%]\n1###2%%%7"));
+    }
 }
