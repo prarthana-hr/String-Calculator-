@@ -28,4 +28,12 @@ public class StringCalculatorTest {
         StringCalculator calculator = new StringCalculator();
         assertEquals(10, calculator.add("1,2\n3,4")); // Mixed delimiters should return the correct sum
     }
+
+    @Test
+    public void testAddCustomDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(3, calculator.add("//;\n1;2")); // Custom delimiter ";"
+        assertEquals(10, calculator.add("//|\n1|2|3|4")); // Custom delimiter "|"
+        assertEquals(6, calculator.add("//#\n1#2#3")); // Custom delimiter "#"
+    }
 }
