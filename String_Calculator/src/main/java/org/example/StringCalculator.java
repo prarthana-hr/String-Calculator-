@@ -4,7 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
+
+    private int callCount = 0;
     public int add(String numbers) {
+        callCount++;
         if (numbers.isEmpty()) {
             return 0;
         }
@@ -61,5 +64,10 @@ public class StringCalculator {
         }
 
         return sum;
+    }
+
+    // New method to return the count of Add() invocations
+    public int GetCalledCount() {
+        return callCount;
     }
 }

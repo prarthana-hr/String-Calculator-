@@ -85,8 +85,23 @@ public class StringCalculatorTest {
     @Test
     void testMultipleDelimiters() {
         StringCalculator calculator = new StringCalculator();
-
         assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
+
+    }
+
+    @Test
+    public void testMultipleDelimitersWithLongerLength() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("//[**][%%]\n1**2%%3"));
         assertEquals(10, calculator.add("//[###][%%%]\n1###2%%%7"));
+    }
+
+    @Test
+    public void testGetCalledCount() {
+        StringCalculator calculator = new StringCalculator();
+        calculator.add("1,2");
+        calculator.add("3");
+        calculator.add("5,6,7");
+        assertEquals(3, calculator.GetCalledCount());
     }
 }
