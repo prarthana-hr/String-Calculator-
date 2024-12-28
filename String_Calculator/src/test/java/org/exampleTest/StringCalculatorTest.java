@@ -2,41 +2,88 @@ package org.exampleTest;
 
 import org.example.StringCalculator;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link StringCalculator} class.
+ * <p>
+ * This test suite ensures the correctness of the {@code add} method
+ * in handling various input formats, edge cases, and exceptions.
+ */
+
 public class StringCalculatorTest {
+    /**
+     * Tests that an empty string input returns 0.
+     */
     @Test
     public void testAddEmptyString() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(0, stringCalculator.add("")); // Empty string should return 0
-        assertEquals(1, stringCalculator.add("1"));// Single number should return the number itself
-        assertEquals(3, stringCalculator.add("1,2"));// Two numbers should return their sum
-        assertEquals(6, stringCalculator.add("1,2,3"));// Sum of 1, 2, 3 is 6
-        assertEquals(15, stringCalculator.add("1,2,3,4,5"));// Sum of 1, 2, 3, 4, 5 is 15
-        assertEquals(0, stringCalculator.add("0,0,0"));// Sum of 0, 0, 0 is 0
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(0, calculator.add(""));
+
     }
 
+    /**
+     * Tests that a single number string input is parsed correctly.
+     */
+    @Test
+    public void testAddSingleNumberString() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(1, calculator.add("1"));
+    }
+
+    /**
+     * Tests that two numbers in the input string are added correctly.
+     */
+    @Test
+    public void testAddTwoNumberString() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(3, calculator.add("1,2"));
+    }
+
+    /**
+     * Tests that adding multiple zeros in the input returns 0.
+     */
+    @Test
+    public void testAddZeroString() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(0, calculator.add("0,0,0"));
+    }
+
+    /**
+     * Tests that multiple numbers in the input string are summed correctly.
+     */
+    @Test
+    public void testAddMultipleNumberString() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1,2,3"));
+        assertEquals(15, calculator.add("1,2,3,4,5"));
+    }
+
+    /**
+     * Tests that newline characters are correctly treated as delimiters.
+     */
     @Test
     public void testAddNewlineDelimiter() {
         StringCalculator calculator = new StringCalculator();
-        assertEquals(6, calculator.add("1\n2,3")); // Handles both commas and newlines
-        assertEquals(10, calculator.add("1\n2\n3\n4")); // Handles multiple newlines
+        assertEquals(6, calculator.add("1\n2,3"));
+        assertEquals(10, calculator.add("1\n2\n3\n4"));
     }
 
+    /**
+     * Tests that custom single-character delimiters are parsed correctly.
+     */
     @Test
-    public void testAddCombinationOfDelimiters() {
+    public void testAddDifferentDelimiter() {
         StringCalculator calculator = new StringCalculator();
-        assertEquals(10, calculator.add("1,2\n3,4")); // Mixed delimiters should return the correct sum
+        assertEquals(3, calculator.add("//;\n1;2"));
+        assertEquals(10, calculator.add("//|\n1|2|3|4"));
+        assertEquals(6, calculator.add("//#\n1#2#3"));
     }
 
-    @Test
-    public void testAddCustomDelimiter() {
-        StringCalculator calculator = new StringCalculator();
-        assertEquals(3, calculator.add("//;\n1;2")); // Custom delimiter ";"
-        assertEquals(10, calculator.add("//|\n1|2|3|4")); // Custom delimiter "|"
-        assertEquals(6, calculator.add("//#\n1#2#3")); // Custom delimiter "#"
-    }
-
+    /**
+     * Tests that a negative number in the input throws an exception with a descriptive message.
+     */
     @Test
     public void testNegativeNumbers() {
         StringCalculator calculator = new StringCalculator();
@@ -49,6 +96,10 @@ public class StringCalculatorTest {
         assertEquals("Negatives not allowed: -2", exception.getMessage());
     }
 
+    /**
+     * Tests that multiple negative numbers in the input throw an exception
+     * with a descriptive message listing all negatives.
+     */
     @Test
     public void testMultipleNegativeNumbers() {
         StringCalculator calculator = new StringCalculator();
@@ -61,7 +112,9 @@ public class StringCalculatorTest {
         assertEquals("Negatives not allowed: -2, -8", exception.getMessage());
     }
 
-
+    /**
+     * Tests that numbers greater than 1000 are ignored in the summation.
+     */
     @Test
     public void testNumbersGreaterThan1000Ignored() {
         StringCalculator calculator = new StringCalculator();
@@ -70,7 +123,9 @@ public class StringCalculatorTest {
         assertEquals(0, calculator.add("1001,1002"));
     }
 
-
+    /**
+     * Tests that custom delimiters of any length are parsed correctly.
+     */
     @Test
     public void testCustomDelimiterOfAnyLength() {
         StringCalculator calculator = new StringCalculator();
@@ -82,6 +137,9 @@ public class StringCalculatorTest {
         assertEquals(0, calculator.add("//[###]\n"));
     }
 
+    /**
+     * Tests that multiple delimiters are parsed and used correctly.
+     */
     @Test
     void testMultipleDelimiters() {
         StringCalculator calculator = new StringCalculator();
@@ -89,6 +147,9 @@ public class StringCalculatorTest {
 
     }
 
+    /**
+     * Tests that multiple custom delimiters of varying lengths are parsed correctly.
+     */
     @Test
     public void testMultipleDelimitersWithLongerLength() {
         StringCalculator calculator = new StringCalculator();
@@ -96,6 +157,9 @@ public class StringCalculatorTest {
         assertEquals(10, calculator.add("//[###][%%%]\n1###2%%%7"));
     }
 
+    /**
+     * Tests that the call count for the {@code add} method is incremented correctly.
+     */
     @Test
     public void testGetCalledCount() {
         StringCalculator calculator = new StringCalculator();
