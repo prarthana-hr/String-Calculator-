@@ -102,6 +102,6 @@ public class StringCalculatorTest {
         calculator.add("1,2");
         calculator.add("3");
         calculator.add("5,6,7");
-        assertEquals(3, calculator.GetCalledCount());
+        assertEquals(3, calculator.getCalledCount());
     }
 }

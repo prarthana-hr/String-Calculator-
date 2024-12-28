@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
-
     private int callCount = 0;
+
     public int add(String numbers) {
         callCount++;
         if (numbers.isEmpty()) {
@@ -67,7 +67,28 @@ public class StringCalculator {
     }
 
     // New method to return the count of Add() invocations
-    public int GetCalledCount() {
+    public int getCalledCount() {
         return callCount;
+    }
+
+    public static void main(String args[]) {
+        StringCalculator stringCalculatorRef = new StringCalculator();
+
+        System.out.println("Test 1: Empty string -> Result: " + stringCalculatorRef.add(""));
+        System.out.println("Test 2: Single number -> Result: " + stringCalculatorRef.add("5"));
+        System.out.println("Test 3: Two numbers -> Result: " + stringCalculatorRef.add("1,2"));
+        System.out.println("Test 4: Multiple numbers -> Result: " + stringCalculatorRef.add("1,2,3,4,5"));
+        System.out.println("Test 5: New line as delimiter -> Result: " + stringCalculatorRef.add("1\n2,3"));
+        System.out.println("Test 6: Custom delimiter -> Result: " + stringCalculatorRef.add("//;\n1;2;3"));
+        try {
+            System.out.println("Test 7: Negative numbers exception -> ");
+            stringCalculatorRef.add("1,-2,-3");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Test 8: Numbers > 1000 ignored -> Result: " + stringCalculatorRef.add("2,1001"));
+        System.out.println("Test 9: Multiple delimiters -> Result: " + stringCalculatorRef.add("//[*][%]\n1*2%3"));
+        System.out.println("Test 10: Multiple delimiters > 1 char -> Result: " + stringCalculatorRef.add("//[**][%%]\n1**2%%3"));
+        System.out.println("Add method call count: " + stringCalculatorRef.getCalledCount());
     }
 }
