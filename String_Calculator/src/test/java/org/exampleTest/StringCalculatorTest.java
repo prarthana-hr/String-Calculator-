@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * This test suite ensures the correctness of the {@code add} method
  * in handling various input formats, edge cases, and exceptions.
  */
-
 public class StringCalculatorTest {
     /**
      * Tests that an empty string input returns 0.
